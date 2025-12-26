@@ -1,7 +1,8 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Send, Mail, Github, Linkedin, CheckCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import emailjs from '@emailjs/browser';
 
 const ContactSection = () => {
   const ref = useRef(null);
@@ -16,25 +17,48 @@ const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init('vjhkXUm6IQ6N3fuOd'); // Public key from EmailJS
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      await emailjs.send(
+        'service_761fqxs', // Service ID
+        'template_occc1q8', // Template ID
+        {
+          to_email: 'mahdi.hammami@ensi-uma.tn',
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+        }
+      );
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    toast({
-      title: 'Message sent!',
-      description: 'Thank you for reaching out. I will get back to you soon.',
-    });
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      toast({
+        title: 'Message sent!',
+        description: 'Thank you for reaching out. I will get back to you soon.',
+      });
 
-    // Reset after animation
-    setTimeout(() => {
-      setFormData({ name: '', email: '', message: '' });
-      setIsSubmitted(false);
-    }, 3000);
+      // Reset after animation
+      setTimeout(() => {
+        setFormData({ name: '', email: '', message: '' });
+        setIsSubmitted(false);
+      }, 3000);
+    } catch (error) {
+      setIsSubmitting(false);
+      console.error('Failed to send email:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to send message. Please try again.',
+        variant: 'destructive',
+      });
+    }
   };
 
   return (
