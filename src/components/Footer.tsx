@@ -28,7 +28,7 @@ const Footer = () => {
               <span className="text-gradient">MH</span>
             </a>
             <p className="text-sm text-muted-foreground mt-1">
-              AI & FinTech-Oriented Software Engineer
+              FinTech-Oriented Software Engineer
             </p>
           </div>
 

@@ -2,7 +2,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { Download, Github, Linkedin, Mail, ChevronDown } from 'lucide-react';
 import heroPhoto from '@/assets/hero-photo.jpeg';
 
-const quickFacts = ['ENSI', 'AI/ML', 'DevOps', 'FinTech'];
+const quickFacts = ['ENSI', 'DevOps', 'FinTech', 'Software Engineering'];
 
 const HeroSection = () => {
   const { scrollY } = useScroll();
