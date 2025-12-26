@@ -31,9 +31,8 @@ const ContactSection = () => {
         'service_761fqxs', // Service ID
         'template_occc1q8', // Template ID
         {
-          to_email: 'mahdi.hammami@ensi-uma.tn',
-          from_name: formData.name,
-          from_email: formData.email,
+          name: formData.name,
+          email: formData.email,
           message: formData.message,
         }
       );
